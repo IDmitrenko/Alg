@@ -56,23 +56,23 @@ public class MyQueue<T> {
         return list[begin];
     }
 
-    private int nextIndex(int index) {
+    protected int nextIndex(int index) {
         return (index + 1) % list.length;
     }
 
-    public int size() {
+    protected int size() {
         return size;
     }
 
-    public int capacity() {
+    protected int capacity() {
         return capacity;
     }
 
-    public boolean isEmpty() {
+    protected boolean isEmpty() {
         return size == 0;
     }
 
-    public boolean isFull() {
+    protected boolean isFull() {
         return size == list.length;
     }
 
