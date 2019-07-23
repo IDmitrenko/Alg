@@ -2,50 +2,52 @@ package lesson3.homework3;
 
 public class MyDeque<T> extends MyQueue {
 
-    private T[] list;
-    private int size = 0;
-    private int capacity;
-    private final int DEFAULT_CAPACITY = 10;
-
-    private int begin = 0;  // начало очереди (извлечь)
-    private int end = 0;    // конец очереди (встать)
+    private int begin;  // начало очереди (извлечь)
+    private int end;    // конец очереди (встать)
 
     public MyDeque(int capacity) {
         super(capacity);
+        this.begin = capacity / 2;
+        this.end = begin + 1;
     }
 
     public MyDeque() {
         super();
+        this.begin = DEFAULT_CAPACITY / 2;
+        this.end = begin + 1;
     }
 
 // добавить слева
-    public void isertLeft(T item) {
+    public void insertLeft(T item) {
         if (isFull()) {
             capacity += DEFAULT_CAPACITY;
             reCapacity(capacity);
-            throw new StackOverflowError();
+//            throw new StackOverflowError();
         }
         if (begin < 0) {
-            T[] tempArr = (T[]) new Object[capacity];
-            System.arraycopy(list, begin, tempArr, 1, size);
-            list = tempArr;
-            begin = 0;
-        } else {
+            capacity += DEFAULT_CAPACITY;
+            reCapacity(capacity);
+        }
+        if (size > 0) {
             begin = prevIndex(begin);
         }
-        size++;
         list[begin] = item;
+        size++;
     }
 
-    public void isertRight(T item) {
+    public void insertRight(T item) {
         if (isFull()) {
             capacity += DEFAULT_CAPACITY;
             reCapacity(capacity);
-            throw new StackOverflowError();
+//            throw new StackOverflowError();
         }
-        list[size] = item;
+        list[end] = item;
         size++;
         end = nextIndex(end);
+        if (end < 0) {
+            capacity += DEFAULT_CAPACITY;
+            reCapacity(capacity);
+        }
     }
 
     public T removeLeft() {
@@ -64,7 +66,7 @@ public class MyDeque<T> extends MyQueue {
             System.out.println("stack empty");
             return null;
         }
-        return list[begin];
+        return (T) list[begin];
     }
 
     public T removeRight() {
@@ -83,20 +85,24 @@ public class MyDeque<T> extends MyQueue {
             System.out.println("stack empty");
             return null;
         }
-        return list[prevIndex(end)];
+        return (T) list[prevIndex(end)];
     }
 
     private int prevIndex(int index) {
-        return index > 0 ? index - 1 : 0;
+        return index > 0 ? --index : -1;
+    }
+
+    private int nextIndex(int index) {
+        return ++index == capacity ? -1 : index;
     }
 
     private void reCapacity(int newCapacity) {
         T[] tempArr = (T[]) new Object[newCapacity];
         if (size != 0) {
-            System.arraycopy(list,begin,tempArr,0,size);
+            System.arraycopy(list,begin,tempArr,((newCapacity - size) / 2),size);
         }
-        begin = 0;
-        end = size;
+        begin = (newCapacity - size) / 2;
+        end = begin + size;
         list = tempArr;
     }
 }

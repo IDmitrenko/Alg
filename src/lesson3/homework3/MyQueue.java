@@ -1,10 +1,10 @@
 package lesson3.homework3;
 
 public class MyQueue<T> {
-    private T[] list;
-    private int size = 0;
-    private int capacity;
-    private final int DEFAULT_CAPACITY = 10;
+    protected T[] list;
+    protected int size = 0;
+    protected int capacity;
+    protected final int DEFAULT_CAPACITY = 10;
     private int begin = 0;  // начало очереди
     private int end = 0;    // конец очереди
 
@@ -56,7 +56,7 @@ public class MyQueue<T> {
         return list[begin];
     }
 
-    protected int nextIndex(int index) {
+    private int nextIndex(int index) {
         return (index + 1) % list.length;
     }
 
