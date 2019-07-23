@@ -10,12 +10,12 @@ public class Z9 {
 
         int a;
         a = in.nextInt();
-        in = new Scanner(System.in);
-
-        String b = in.nextLine().trim();
 
         Integer[] arr = new Integer[a];
-        String[] arrS = b.split(" ", a);
+        for (int i = 0; i < a; i++) {
+            arr[i] = in.nextInt();
+        }
+
         int sumPositive = 0;
         int mulInterval = 1;
         int positionMin = 0;
@@ -26,7 +26,6 @@ public class Z9 {
         int temp;
 
         for (int i = 0; i < a; i++) {
-            arr[i] = Integer.parseInt(arrS[i]);
             if (arr[i] > 0)
                 sumPositive += arr[i];
             if (arr[i] > maxValue) {
