@@ -1,6 +1,8 @@
 package lesson2;
 
 
+import java.util.Comparator;
+
 public class MyArrayList<Item extends Comparable> {
     private Item[] list;
     private int size = 0;
@@ -112,11 +114,15 @@ public class MyArrayList<Item extends Comparable> {
     }
 
     public void bubbleSort(){
+        bubbleSort(Comparator.naturalOrder());
+    }
+
+    public void bubbleSort(Comparator comparator){
         boolean isSwap;
         for (int i = size-1; i >0 ; i--) {
             isSwap = false;
             for (int j = 0; j < i; j++) {
-                if(less(list[j+1], list[j])){
+                if(comparator.compare(list[j+1], list[j])<0){
                     swap(j+1,j);
                     isSwap = true;
                 }

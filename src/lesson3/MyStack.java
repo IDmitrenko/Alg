@@ -19,7 +19,8 @@ public class MyStack<Item> {
 
     public void push(Item item) {
         if (isFull()) {
-            throw new StackOverflowError();
+//            throw new StackOverflowError();
+            reCapacity(size * 2);
         }
         list[size] = item;
         size++;
@@ -29,9 +30,11 @@ public class MyStack<Item> {
         Item temp = peek();
         size--;
         list[size] = null;
+        if (size < list.length * 0.25) {
+            reCapacity(list.length / 2);
+        }
         return temp;
     }
-
 
     public Item peek() {
         if (isEmpty()) {
@@ -53,9 +56,9 @@ public class MyStack<Item> {
         return size == list.length;
     }
 
-    private void reCapacity( int newCapacity){
+    private void reCapacity(int newCapacity) {
         Item[] tempArr = (Item[]) new Object[newCapacity];
-        System.arraycopy(list,0,tempArr,0,size);
+        System.arraycopy(list, 0, tempArr, 0, size);
         list = tempArr;
     }
 }

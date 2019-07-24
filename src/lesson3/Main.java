@@ -51,23 +51,38 @@ public class Main {
 //
 
 
-        MyPriorityQueue<String> mpqS =
-//                new MyPriorityQueue<>(10,String.CASE_INSENSITIVE_ORDER);
-        new MyPriorityQueue<>(10, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                return ((String)o1).length() - ((String)o2).length() ;
-            }
-        });
-        mpqS.insert("A");
-        mpqS.insert("a");
-        mpqS.insert("bb");
-        mpqS.insert("CCC");
-        mpqS.insert("abc");
-        mpqS.insert("x");
-        mpqS.insert("tt");
-        mpqS.insert("X");
-        System.out.println(mpqS);
-
+//        MyPriorityQueue<String> mpqS =
+////                new MyPriorityQueue<>(10,String.CASE_INSENSITIVE_ORDER);
+//        new MyPriorityQueue<>(10, new Comparator() {
+//            @Override
+//            public int compare(Object o1, Object o2) {
+//                return ((String)o1).length() - ((String)o2).length() ;
+//            }
+//        });
+//        mpqS.insert("A");
+//        mpqS.insert("a");
+//        mpqS.insert("bb");
+//        mpqS.insert("CCC");
+//        mpqS.insert("abc");
+//        mpqS.insert("x");
+//        mpqS.insert("tt");
+//        mpqS.insert("X");
+//        System.out.println(mpqS);
+        System.out.println(reverseString("qwerty"));
     }
+
+    public static String reverseString(String s){
+//        StringBuilder sb = new StringBuilder(s);
+//        return sb.reverse().toString();
+        MyStack<Character> stack = new MyStack<>(s.length());
+        for (int i = 0; i < s.length(); i++) {
+            stack.push(s.charAt(i));
+        }
+        String str="";
+        for (int i = 0; i < s.length(); i++) {
+            str+= stack.pop();
+        }
+        return str;
+    }
+
 }

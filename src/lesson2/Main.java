@@ -1,5 +1,7 @@
 package lesson2;
 
+import java.util.Comparator;
+
 public class Main {
     public static void main(String[] args) {
 //        MyArrayList<Integer> mal = new MyArrayList();
@@ -27,17 +29,17 @@ public class Main {
 
         MyArrayList<Integer> mal = new MyArrayList(200);
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             mal.add(i+ (int)(Math.random()*10));
         }
-//        System.out.println(mal);
+        System.out.println(mal);
 
 //
 //        mal.selectionSort();
 //        mal.insertionSort();
-        mal.bubbleSort();
+        mal.bubbleSort(Comparator.reverseOrder());
 
-//        System.out.println(mal);
+        System.out.println(mal);
 
     }
 }
