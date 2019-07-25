@@ -49,25 +49,15 @@ public class MyDoubleLinkedList<T> implements Iterable<T> {
         }
 
         @Override
-//возвращает индекс следующего элемента. Если такого нет, то возвращается размер списка
+//возвращает индекс следующего элемента. Если такого нет, то возвращается число -1
         public int nextIndex() {
-            int currentIndex = indexOf((T) current.getValue());
-            if (currentIndex == -1) {
-                return size;
-            } else {
-                return currentIndex++;
-            }
+            return indexOf(next());
         }
 
         @Override
 //возвращает индекс предыдущего элемента. Если такого нет, то возвращается число -1
         public int previousIndex() {
-            int currentIndex = indexOf((T) current.getValue());
-            if (currentIndex == -1) {
-                return currentIndex;
-            } else {
-                return currentIndex--;
-            }
+            return indexOf(previous());
         }
 
         @Override
@@ -85,7 +75,7 @@ public class MyDoubleLinkedList<T> implements Iterable<T> {
         @Override
 //вставляет объект item перед элементом, который должен быть возвращен следующим вызовом next()
         public void add(T item) {
-            insert(indexOf(item) , item);
+            insert(indexOf((T) current.getValue()), item);
         }
 
     }
