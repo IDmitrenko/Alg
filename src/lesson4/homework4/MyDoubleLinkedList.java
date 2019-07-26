@@ -63,7 +63,15 @@ public class MyDoubleLinkedList<T> implements Iterable<T> {
         @Override
 //удаляет текущий элемент из списка
         public void remove() {
-            MyDoubleLinkedList.this.remove((T) current.getValue());
+//            MyDoubleLinkedList.this.remove((T) current.getValue());
+            if (current == first) {
+                removeFirst();
+            } else if (current == last) {
+                removeLast();
+            } else {
+                current.getPrevious().setNext(current.getNext());
+                current.getNext().setPrevious(current.getPrevious());
+            }
         }
 
         @Override
@@ -276,7 +284,7 @@ public class MyDoubleLinkedList<T> implements Iterable<T> {
 // проверка на конец списка и поиск удаляемого элемента
             current = current.getNext();
         }
-        if (current.getNext() == null) {
+        if (current == null) {
             return false;   // выход по концу списка
         }
         if (current == last) {

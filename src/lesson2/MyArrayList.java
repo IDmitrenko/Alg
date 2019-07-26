@@ -113,25 +113,61 @@ public class MyArrayList<Item extends Comparable> {
         }
     }
 
-    public void bubbleSort(){
+    public void bubbleSort() {
         bubbleSort(Comparator.naturalOrder());
     }
 
-    public void bubbleSort(Comparator comparator){
+    public void bubbleSort(Comparator comparator) {
         boolean isSwap;
-        for (int i = size-1; i >0 ; i--) {
+        for (int i = size - 1; i > 0; i--) {
             isSwap = false;
             for (int j = 0; j < i; j++) {
-                if(comparator.compare(list[j+1], list[j])<0){
-                    swap(j+1,j);
+                if (comparator.compare(list[j + 1], list[j]) < 0) {
+                    swap(j + 1, j);
                     isSwap = true;
                 }
             }
-            if(!isSwap){
+            if (!isSwap) {
                 System.out.println("break i= " + i);
                 break;
             }
         }
+    }
+
+    private void qSort(int low, int high) {
+        if (low >= high) {
+            return;
+        }
+        int middle = low + (high - low) / 2;
+        Item opora = list[middle];
+
+        int i = low;
+        int j = high;
+
+        while (i <= j) {
+            while (less(list[i], opora)) {
+                i++;
+            }
+            while (less(opora, list[j])) {
+                j--;
+            }
+            if (i <= j) {
+                swap(i, j);
+                i++;
+                j--;
+            }
+        }
+
+        if (low < j) {
+            qSort(low, j);
+        }
+        if (high > i) {
+            qSort(i, high);
+        }
+    }
+
+    public void quickSort() {
+        qSort(0, size() - 1);
     }
 
     @Override

@@ -27,10 +27,18 @@ public class Main {
         mll.insert(1,"Misha");
         System.out.println(mll);
 
-//        Iterator<String> iterator = mll.iterator();
-//        while(iterator.hasNext()){
+        for (String s:mll ) {
+            System.out.print(s+"; ");
+        }
+        System.out.println();
+
+        Iterator<String> iterator = mll.iterator();
+        while(iterator.hasNext()){
 //            System.out.print(iterator.next() + ", ");
-//        }
+            if(iterator.next().contains("i")){
+                iterator.remove();
+            }
+        }
 
         for (String s:mll ) {
             System.out.print(s+"; ");

@@ -17,8 +17,8 @@ public class MyDoubleLinkedList<Item> implements Iterable<Item> {
         return new Iter();
     }
 
-    private class Iter implements Iterator<Item>{
-        Node current = new Node(null,first);
+    private class Iter implements Iterator<Item> {
+        Node current = new Node(null, first);
 
         @Override
         public boolean hasNext() {
@@ -29,6 +29,18 @@ public class MyDoubleLinkedList<Item> implements Iterable<Item> {
         public Item next() {
             current = current.getNext();
             return (Item) current.getValue();
+        }
+
+        @Override
+        public void remove() {
+            if (current == first) {
+                removeFirst();
+            } else if (current == last) {
+                removeLast();
+            } else {
+                current.getPrevious().setNext(current.getNext());
+                current.getNext().setPrevious(current.getPrevious());
+            }
         }
     }
 
@@ -169,7 +181,7 @@ public class MyDoubleLinkedList<Item> implements Iterable<Item> {
             insertFirst(item);
             return;
         }
-        if (index >=size) {
+        if (index >= size) {
             insertLast(item);
             return;
         }
@@ -201,10 +213,12 @@ public class MyDoubleLinkedList<Item> implements Iterable<Item> {
                 !current.getValue().equals(item)) {
             current = current.getNext();
         }
-        if (current.getNext() == null) {
+        ////////////////////////
+        if (current == null) {
             return false;
         }
-        if(current == last){
+        ////////////////////////
+        if (current == last) {
             removeLast();
             return true;
         }
