@@ -5,9 +5,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
+// Задача о рюкзаке (метод динамического программирования)
 public class BackPack {
     public static void main(String[] args) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("src\\lesson5\\homework5\\Input.txt")))) {
@@ -23,6 +23,9 @@ public class BackPack {
             }
             List<Box> result = solve(cb, new ArrayList<>(), capacity);
             System.out.println(result);
+            System.out.println(result.stream().map(b -> b.getPrice()).reduce((p1, p2) -> p1 + p2).get());
+            System.out.println(result.stream().map(b -> b.getWeight()).reduce((p1, p2) -> p1 + p2).get());
+
         } catch (IOException ex) {
             System.out.println("Не найден файл входных данных Input.txt");
         }
@@ -30,6 +33,11 @@ public class BackPack {
 
     }
 
+    /**
+     * boxes - список рассматриваемых коробок
+     * takeList - список подходящих коробок
+     * capacity - остаточная вместимость
+     */
     public static List<Box> solve(List<Box> boxes, List<Box> takeList, int capacity) {
         if (boxes.size() == 1) {
             if (boxes.get(0).weight <= capacity) {
@@ -40,14 +48,14 @@ public class BackPack {
         } else {
             Box first = boxes.get(0);
             if (first.weight <= capacity) {
-                //do not take
+                //коробку не  берем
                 List<Box> doNotTake = solve(boxes.subList(1, boxes.size()), takeList, capacity);
-                //take box, reduce capacity
+                //берем коробку, уменьшаем емкость
                 List<Box> take = solve(boxes.subList(1, boxes.size()), addToList(takeList, first), capacity - first.weight);
 
                 return checkMaximum(take, doNotTake);
             } else {
-                //exclude box
+                //исключаем коробку (не подходит)
                 return solve(boxes.subList(1, boxes.size()), takeList, capacity);
             }
         }
@@ -74,11 +82,6 @@ public class BackPack {
             return doNotTake;
         }
 
-    }
-
-    private Collection setDefinition(int capacity, Collection<Box> cb) {
-
-        return null;
     }
 
     public static class Box {
