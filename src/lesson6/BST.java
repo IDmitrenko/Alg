@@ -65,10 +65,34 @@ public class BST<Key extends Comparable<Key>, Value> {
         }
     }
 
+    public boolean isBalanced() {
+        return isBalanced(root);
+    }
+
+    private boolean isBalanced(Node root) {
+        return root == null
+                || (isBalanced(root.left)
+                && isBalanced(root.right)
+                && Math.abs(depth(root.left, 1) - depth(root.right, 1)) <= 1);
+    }
+
+    public int depth() {
+        return depth(root, 1);
+    }
+
+    private int depth(Node node, int level) {
+        if (node == null) {
+            return level - 1;
+        }
+        int leftSize = depth(node.left, level + 1);
+        int rightSize = depth(node.right, level + 1);
+        return Math.max(leftSize, rightSize);
+    }
+
     public void put(Key key, Value value) {
         isKeyNotNull(key);
         if (value == null) {
-            //delete(key);
+            delete(key);
             return;
         }
         root = put(root, key, value);
@@ -140,13 +164,13 @@ public class BST<Key extends Comparable<Key>, Value> {
         int cmp = key.compareTo(node.key);
         if (cmp < 0) {
             node.left = delete(node.left, key);
-        } else if (cmp > 0){
+        } else if (cmp > 0) {
             node.right = delete(node.right, key);
-        }else{
-            if(node.left == null ){
+        } else {
+            if (node.left == null) {
                 return node.right;
             }
-            if(node.right == null ){
+            if (node.right == null) {
                 return node.left;
             }
             Node temp = node;
