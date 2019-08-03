@@ -1,6 +1,6 @@
 package lesson6;
 
-public class MainTree {
+public class TreePresentation {
 
     private Node root;
 
