@@ -1,4 +1,4 @@
-package lesson8;
+package lesson8.homework8;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
